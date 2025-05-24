@@ -38,13 +38,13 @@ const winningCombos = [
 
 function checkWinner(tiles, setStrikeClass, setGameState) {
     for (const {combo, strikeClass} of winningCombos) {
-        const tileValue1 = tiles[combo[0]];
-        const tileValue2 = tiles[combo[1]];
-        const tileValue3 = tiles[combo[2]];
+        const tileValue1 = tiles[combo[0].player];
+        const tileValue2 = tiles[combo[1].player];
+        const tileValue3 = tiles[combo[2].player];
 
         if (tileValue1 !== null && tileValue1 === tileValue2 && tileValue1 === tileValue3) {
             setStrikeClass(strikeClass);
-            if (tileValue1 === PLAYER_X) {
+            if (tileValue1 === "P1") {
                 setGameState(GameState.playerXWins);
             } else {
                 setGameState(GameState.playerOWins);
@@ -64,8 +64,8 @@ function TicTacToe () {
     const [gameStarted, setGameStarted] = useState(false);
 
     const startGame = (p1Cat, p2Cat) => {
-    setPlayers({ P1: emojiCategories[p1Cat], P2: emojiCategories[p2Cat] });
-    setGameStarted(true);
+        setPlayers({ P1: emojiCategories[p1Cat], P2: emojiCategories[p2Cat] });
+        setGameStarted(true);
     };
 
     const handleTileClick = (index) => {
@@ -77,9 +77,22 @@ function TicTacToe () {
             return;
         }
 
+        const emojiList = players[playerTurn];
+        const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+        const history = {...emojiHistory};
         const newTiles = [...tiles];
-        newTiles[index] = playerTurn;
+
+        //remove the oldest emoji if more than 3
+        if (history[playerTurn].length === 3) {
+            const removed = history[playerTurn].shift();
+            newTiles[removed.index] = null;
+        }
+
+        newTiles[index] = { emoji: randomEmoji, player: playerTurn};
+        history[playerTurn].push({ index, emoji: randomEmoji });
+
         setTiles(newTiles);
+        setEmojiHistory(history);
         if (playerTurn === "P1") {
             setPlayerTurn("P2");
         } else {
@@ -96,11 +109,11 @@ function TicTacToe () {
         setGameStarted(false);
     };
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (gameStarted) {
-            checkWinner(tiles, setStrikeClass, setGameState);
+            checkWinner();
         }    
-    }, [tiles]);
+    }, [tiles]); */
 
     useEffect (() => {
         if (tiles.some((tile) => tile !== null)) {
@@ -114,24 +127,19 @@ function TicTacToe () {
         }
     }, [gameState]);
 
-    if (!gameStarted) {
-        return <CategorySelector startGame={startGame} />;
-    }
-
     return (
         <div>
             {!gameStarted ? (
-                <CategorySelector onStart={startGame} />
+                <CategorySelector startGame={startGame} />
             ) : (
                 <>
                     <h1>Blink Tac Toe</h1>
-                    <Board playerTurn={playerTurn} tiles = {tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
+                    <Board playerTurn={playerTurn} tiles={tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
                     <GameOver gameState={gameState}/>
                     <Reset gameState={gameState} onReset={handleReset}/>
-                </>      
+                </>
             )}
         </div>
-        
     );
 }
 
