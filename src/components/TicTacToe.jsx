@@ -3,7 +3,7 @@ import Board from "./Board";
 import GameOver from "./GameOver";
 import GameState from "./GameState";
 import Reset from "./Reset";
-import gameOverSoundFile from "../sounds/gameover.wav";
+import gameOverSoundFile from "../sounds/gameOver.wav";
 import clickSoundFile from "../sounds/click.wav";
 import CategorySelector from "./CategorySelector";
 import HelpModal from "./HelpModal";
