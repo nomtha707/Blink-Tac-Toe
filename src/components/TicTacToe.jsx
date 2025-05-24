@@ -80,18 +80,20 @@ function TicTacToe () {
         const newTiles = [...tiles];
         newTiles[index] = playerTurn;
         setTiles(newTiles);
-        if (playerTurn === PLAYER_X) {
-            setPlayerTurn(PLAYER_O);
+        if (playerTurn === "P1") {
+            setPlayerTurn("P2");
         } else {
-            setPlayerTurn(PLAYER_X);
+            setPlayerTurn("P1");
         }
     };
 
     const handleReset  = () => {
         setGameState(GameState.inProgress);
         setTiles(Array(9).fill(null));
-        setPlayerTurn(PLAYER_X);
+        setPlayerTurn("P1");
         setStrikeClass(null);
+        setEmojiHistory({ P1: [], P2: []});
+        setGameStarted(false);
     };
 
     useEffect(() => {
@@ -112,7 +114,7 @@ function TicTacToe () {
 
     return (
         <div>
-            <h1>Tic Tac Toe</h1>
+            <h1>Blink Tac Toe</h1>
             <Board playerTurn={playerTurn} tiles = {tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
             <GameOver gameState={gameState}/>
             <Reset gameState={gameState} onReset={handleReset}/>
