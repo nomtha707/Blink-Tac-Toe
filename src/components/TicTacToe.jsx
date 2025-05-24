@@ -19,36 +19,37 @@ const emojiCategories = {
   Sports: ["⚽", "🏀", "🏈", "🎾"]
 };
 
-
-const winningCombos = [
-    //for the rows
-    {combo:[0, 1, 2], strikeClass: "strike-row-1"},
-    {combo:[3, 4, 5], strikeClass: "strike-row-2"},
-    {combo:[6, 7, 8], strikeClass: "strike-row-3"},
-
-    //for the columns
-    {combo:[0, 3, 6], strikeClass: "strike-column-1"},
-    {combo:[1, 4, 7], strikeClass: "strike-column-2"},
-    {combo:[2, 5, 8], strikeClass: "strike-column-3"},
-
-    //for the diagonals
-    {combo:[0, 4, 8], strikeClass: "strike-diagonal-1"},
-    {combo:[2, 4, 6], strikeClass: "strike-diagonal-2"},
-];
-
 function checkWinner(tiles, setStrikeClass, setGameState) {
-    for (const {combo, strikeClass} of winningCombos) {
-        const tileValue1 = tiles[combo[0].player];
-        const tileValue2 = tiles[combo[1].player];
-        const tileValue3 = tiles[combo[2].player];
+    const winningCombos = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], //row wise wins
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], //column wise wins
+        [0, 4, 8], [2, 4, 6]             //diagonal wise wins
+    ];
 
-        if (tileValue1 !== null && tileValue1 === tileValue2 && tileValue1 === tileValue3) {
-            setStrikeClass(strikeClass);
-            if (tileValue1 === "P1") {
-                setGameState(GameState.playerXWins);
-            } else {
-                setGameState(GameState.playerOWins);
-            }
+    const strikeMap = {
+        "0,1,2" : "strike-row-1",
+        "3,4,5" : "strike-row-2",
+        "6,7,8" : "strike-row-3",
+        "0,3,6" : "strike-column-1",
+        "1,4,7" : "strike-column-2",
+        "2,5,8" : "strike-column-3",
+        "0,4,8" : "strike-diagonal-1",
+        "2,4,6" : "strike-diagonal-2"
+    };
+
+    for (let combo of winningCombos) {
+        const [a, b, c] = combo;
+        const va = tiles[a];
+        const vb = tiles[b];
+        const vc = tiles[c];
+
+        if (
+            va && vb && vc &&
+            va.player === vb.player && 
+            vb.player === vc.player 
+        ) {
+            setStrikeClass(strikeMap[combo.join(",")]);
+            setGameState(va.player === "P1" ? GameState.playerXWins : GameState.playerOWins);
             return;
         }
     }
@@ -109,11 +110,13 @@ function TicTacToe () {
         setGameStarted(false);
     };
 
-    /* useEffect(() => {
+
+    useEffect(() => {
         if (gameStarted) {
-            checkWinner();
+            checkWinner(tiles, setStrikeClass, setGameState);
         }    
-    }, [tiles]); */
+    }, [tiles]);
+
 
     useEffect (() => {
         if (tiles.some((tile) => tile !== null)) {
