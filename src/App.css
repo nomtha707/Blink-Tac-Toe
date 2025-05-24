@@ -1,13 +1,18 @@
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #23272f;
-  color: white;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;   
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2a006c, #4a008c); 
+    color: #e0e0e0; 
+    padding: 20px;
+    box-sizing: border-box; 
 }
 
 h1 {
   text-align: center;
+  margin-top: 24px;
 }
 
 .board {
@@ -110,4 +115,155 @@ h1 {
   color: white;
   width: 100%;
   font-size: 1.5em;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 20px; 
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05); /* Enhanced shadow and subtle border */
+    text-align: center;
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    max-width: 450px; 
+    width: 95%; 
+    box-sizing: border-box; 
+}
+
+h2 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 2em; 
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px; 
+    font-size: 1.15em; 
+    color: #c0c0c0; 
+    font-weight: 500;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 14px 18px; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px; 
+    background-color: rgba(0, 0, 0, 0.3); 
+    color: #ffffff;
+    font-size: 1.1em;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box; 
+}
+
+.input-group select:focus {
+    outline: none;
+    border-color: #8a2be2; 
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.4); 
+}
+
+.input-group select option {
+    background-color: #3b006b; 
+    color: #ffffff;
+    padding: 10px; 
+}
+
+.start-button {
+    background: linear-gradient(45deg, #8a2be2, #4b0082); 
+    color: #ffffff;
+    padding: 16px 35px; 
+    border: none;
+    border-radius: 30px; 
+    font-size: 1.3em; 
+    font-weight: 700; 
+    cursor: pointer;
+    margin-top: 30px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 0.8px; 
+    text-transform: uppercase;
+    width: 100%; 
+    max-width: 300px; 
+}
+
+.start-button:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+    background: linear-gradient(45deg, #9933ff, #5a0096); 
+}
+
+.start-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:disabled {
+    background: #6a6a6a; 
+    cursor: not-allowed;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transform: none; 
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 30px 25px;
+        margin: 15px; 
+    }
+
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+    }
+
+    .input-group label {
+        font-size: 1.05em;
+    }
+
+    .input-group select {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+
+    .start-button {
+        font-size: 1.1em;
+        padding: 14px 25px;
+        margin-top: 25px;
+        max-width: 90%; 
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        padding: 25px 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
 }

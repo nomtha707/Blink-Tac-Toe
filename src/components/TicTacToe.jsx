@@ -97,7 +97,9 @@ function TicTacToe () {
     };
 
     useEffect(() => {
-        checkWinner(tiles, setStrikeClass, setGameState);
+        if (gameStarted) {
+            checkWinner(tiles, setStrikeClass, setGameState);
+        }    
     }, [tiles]);
 
     useEffect (() => {
@@ -112,12 +114,22 @@ function TicTacToe () {
         }
     }, [gameState]);
 
+    if (!gameStarted) {
+        return <CategorySelector startGame={startGame} />;
+    }
+
     return (
         <div>
-            <h1>Blink Tac Toe</h1>
-            <Board playerTurn={playerTurn} tiles = {tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
-            <GameOver gameState={gameState}/>
-            <Reset gameState={gameState} onReset={handleReset}/>
+            {!gameStarted ? (
+                <CategorySelector onStart={startGame} />
+            ) : (
+                <>
+                    <h1>Blink Tac Toe</h1>
+                    <Board playerTurn={playerTurn} tiles = {tiles} onTileClick={handleTileClick} strikeClass={strikeClass}/>
+                    <GameOver gameState={gameState}/>
+                    <Reset gameState={gameState} onReset={handleReset}/>
+                </>      
+            )}
         </div>
         
     );
