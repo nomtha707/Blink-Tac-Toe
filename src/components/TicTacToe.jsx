@@ -5,14 +5,20 @@ import GameState from "./GameState";
 import Reset from "./Reset";
 import gameOverSoundFile from "../sounds/gameover.wav";
 import clickSoundFile from "../sounds/click.wav";
+import CategorySelector from "./CategorySelector";
 
 const gameOverSound = new Audio(gameOverSoundFile);
 gameOverSound.volume = 0.2;
 const clickSound = new Audio(clickSoundFile);
 clickSound.volume = 0.5;
 
-const PLAYER_X = "X";
-const PLAYER_O = "O";
+//emoji categories
+const emojiCategories = {
+  Animals: ["🐶", "🐱", "🐵", "🐰"],
+  Food: ["🍕", "🍟", "🍔", "🍩"],
+  Sports: ["⚽", "🏀", "🏈", "🎾"]
+};
+
 
 const winningCombos = [
     //for the rows
@@ -50,9 +56,17 @@ function checkWinner(tiles, setStrikeClass, setGameState) {
 
 function TicTacToe () {
     const [tiles, setTiles] = useState(Array(9).fill(null));
-    const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
+    const [playerTurn, setPlayerTurn] = useState("P1");
     const [strikeClass, setStrikeClass] = useState();
     const [gameState, setGameState] = useState(GameState.inProgress);
+    const [emojiHistory, setEmojiHistory] = useState({P1 : [], P2: []});
+    const [players, setPlayers] = useState({P1: null, P2: null});
+    const [gameStarted, setGameStarted] = useState(false);
+
+    const startGame = (p1Cat, p2Cat) => {
+    setPlayers({ P1: emojiCategories[p1Cat], P2: emojiCategories[p2Cat] });
+    setGameStarted(true);
+    };
 
     const handleTileClick = (index) => {
         if (gameState !== GameState.inProgress) {
