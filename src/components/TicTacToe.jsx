@@ -17,7 +17,9 @@ clickSound.volume = 0.5;
 const emojiCategories = {
   Animals: ["🐶", "🐱", "🐵", "🐰"],
   Food: ["🍕", "🍟", "🍔", "🍩"],
-  Sports: ["⚽", "🏀", "🏈", "🎾"]
+  Sports: ["⚽", "🏀", "🏈", "🎾"],
+  Blue: ["🧿", "🐬", "🪼", "🧶"],
+  Green: ["💵", "🍾", "🍀", "🗽"]
 };
 
 function checkWinner(tiles, setStrikeClass, setGameState) {

@@ -11,7 +11,7 @@ function CategorySelector({ startGame }) {
     }
   };
 
-  const categories = ["Animals", "Food", "Sports"]; 
+  const categories = ["Animals", "Food", "Sports", "Blue", "Green"]; 
 
   return (
     <div className="container"> 
