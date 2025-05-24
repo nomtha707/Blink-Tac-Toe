@@ -6,6 +6,7 @@ import Reset from "./Reset";
 import gameOverSoundFile from "../sounds/gameover.wav";
 import clickSoundFile from "../sounds/click.wav";
 import CategorySelector from "./CategorySelector";
+import HelpModal from "./HelpModal";
 
 const gameOverSound = new Audio(gameOverSoundFile);
 gameOverSound.volume = 0.2;
@@ -63,6 +64,7 @@ function TicTacToe () {
     const [emojiHistory, setEmojiHistory] = useState({P1 : [], P2: []});
     const [players, setPlayers] = useState({P1: null, P2: null});
     const [gameStarted, setGameStarted] = useState(false);
+    const [showHelp, setShowHelp] = useState(false);
 
     const startGame = (p1Cat, p2Cat) => {
         setPlayers({ P1: emojiCategories[p1Cat], P2: emojiCategories[p2Cat] });
@@ -108,6 +110,7 @@ function TicTacToe () {
         setStrikeClass(null);
         setEmojiHistory({ P1: [], P2: []});
         setGameStarted(false);
+        setShowHelp(false);
     };
 
 
@@ -142,6 +145,10 @@ function TicTacToe () {
                     <Reset gameState={gameState} onReset={handleReset}/>
                 </>
             )}
+            <button className="help-button" onClick={() => setShowHelp(!showHelp)}>
+                {showHelp ? "Hide Rules" : "Help / Rules"}
+            </button>
+            {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
         </div>
     );
 }
