@@ -48,4 +48,11 @@ Players are randomly assigned an emoji from their selected category on every tur
   - That tile becomes empty and reusable.
   - The player **cannot place a new emoji where the oldest one was removed**.
 
+---
 
+## Improvements with More Time
+
+- Add animations for emoji appearance/disappearance
+- Sound toggle & settings panel
+- Player score tracking for multiple rounds
+- Custom emoji category builder for the users
